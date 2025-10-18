@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import TodoList from './TodoList';
+import TodoList from './TodoList.js';
 
 function BoardComponent({ boards, defaultBoardIndex = 0 }) {
   const [selectedBoardId, setSelectedBoardId] = useState('');
@@ -34,7 +34,7 @@ function BoardComponent({ boards, defaultBoardIndex = 0 }) {
       backgroundColor: '#fff',
       color: '#000'
     }}>
-      <h3 style={{ color: '#000', marginBottom: '15px' }}>Monday.com Todo List</h3>
+      <h3 style={{ color: '#000', marginBottom: '15px' }}>Zoho Tasks Todo List</h3>
 
       {/* Board Selection Dropdown */}
       <div style={{ marginBottom: '20px' }}>

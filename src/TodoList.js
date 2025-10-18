@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
-function TodoList({ boardId, boardName }) {
+function TodoList({ taskListId, boardName }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,11 +14,11 @@ function TodoList({ boardId, boardName }) {
       setError(null);
 
       const userEmail = localStorage.getItem('user_email');
-      console.log('Fetching items for boardId:', boardId, 'user:', userEmail);
-      const itemsResponse = await fetch(`/.netlify/functions/monday-items?boardId=${boardId}&userId=${encodeURIComponent(userEmail)}`, {
+      console.log('Fetching items for taskListId:', taskListId, 'user:', userEmail);
+      const itemsResponse = await fetch(`/.netlify/functions/zoho-tasks?taskListId=${taskListId}&userId=${encodeURIComponent(userEmail)}`, {
         method: 'GET',
       });
-      console.log('Fetch URL:', `/.netlify/functions/monday-items?boardId=${boardId}`);
+      console.log('Fetch URL:', `/.netlify/functions/zoho-tasks?taskListId=${taskListId}`);
 
       console.log('Items response status:', itemsResponse.status);
       console.log('Items response headers:', Object.fromEntries(itemsResponse.headers.entries()));
@@ -33,7 +33,7 @@ function TodoList({ boardId, boardName }) {
       console.log('Items data:', itemsData);
 
       const boardItems = itemsData.data || [];
-      console.log('Found items for board', boardId, ':', boardItems);
+      console.log('Found items for board', taskListId, ':', boardItems);
 
       // Transform items to match expected format with column_values
       const transformedItems = boardItems.map(item => ({
@@ -50,23 +50,23 @@ function TodoList({ boardId, boardName }) {
     } finally {
       setLoading(false);
     }
-  }, [boardId]);
+  }, [taskListId]);
 
   useEffect(() => {
-    if (boardId) {
+    if (taskListId) {
       fetchItems();
     } else {
       setItems([]);
       setLoading(false);
     }
-  }, [boardId, fetchItems]);
+  }, [taskListId, fetchItems]);
 
   const createItem = async () => {
     if (!newItemName.trim()) return;
 
     try {
       const userEmail = localStorage.getItem('user_email');
-      const response = await fetch(`/.netlify/functions/monday-items?boardId=${boardId}&userId=${encodeURIComponent(userEmail)}`, {
+      const response = await fetch(`/.netlify/functions/zoho-tasks?taskListId=${taskListId}&userId=${encodeURIComponent(userEmail)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function TodoList({ boardId, boardName }) {
   const updateItem = async (id, name) => {
     try {
       const userEmail = localStorage.getItem('user_email');
-      const response = await fetch(`/.netlify/functions/monday-items?userId=${encodeURIComponent(userEmail)}`, {
+      const response = await fetch(`/.netlify/functions/zoho-tasks?userId=${encodeURIComponent(userEmail)}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ function TodoList({ boardId, boardName }) {
     console.log('Deleting item:', id);
     try {
       const userEmail = localStorage.getItem('user_email');
-      const response = await fetch(`/.netlify/functions/monday-items?itemId=${id}&userId=${encodeURIComponent(userEmail)}`, {
+      const response = await fetch(`/.netlify/functions/zoho-tasks?itemId=${id}&userId=${encodeURIComponent(userEmail)}`, {
         method: 'DELETE',
       });
 
@@ -160,14 +160,14 @@ function TodoList({ boardId, boardName }) {
       
       console.log('Sending column values:', columnValues);
       
-      const response = await fetch(`/.netlify/functions/monday-items?userId=${encodeURIComponent(userEmail)}`, {
+      const response = await fetch(`/.netlify/functions/zoho-tasks?userId=${encodeURIComponent(userEmail)}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           id: item.id,
-          boardId: boardId,
+          taskListId: taskListId,
           columnValues: columnValues
         }),
       });

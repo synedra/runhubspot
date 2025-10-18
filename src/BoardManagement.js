@@ -15,7 +15,7 @@ function BoardManagement({ boards, onBoardChange }) {
 
     try {
       const userEmail = localStorage.getItem('user_email');
-      const response = await fetch(`/.netlify/functions/monday-boards?userId=${encodeURIComponent(userEmail)}`, {
+      const response = await fetch(`/.netlify/functions/zoho-tasklists?userId=${encodeURIComponent(userEmail)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ function BoardManagement({ boards, onBoardChange }) {
 
     try {
       const userEmail = localStorage.getItem('user_email');
-      const response = await fetch(`/.netlify/functions/monday-boards?userId=${encodeURIComponent(userEmail)}`, {
+      const response = await fetch(`/.netlify/functions/zoho-tasklists?userId=${encodeURIComponent(userEmail)}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ function BoardManagement({ boards, onBoardChange }) {
 
     try {
       const userEmail = localStorage.getItem('user_email');
-      const response = await fetch(`/.netlify/functions/monday-boards?boardId=${id}&userId=${encodeURIComponent(userEmail)}`, {
+      const response = await fetch(`/.netlify/functions/zoho-tasklists?taskListId=${id}&userId=${encodeURIComponent(userEmail)}`, {
         method: 'DELETE',
       });
 

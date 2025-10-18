@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import App from './App.js';
 
-test('renders learn react link', () => {
+test('renders Zoho Tasks Todo List title', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const titleElement = screen.getByText(/Zoho Tasks Todo List/i);
+  expect(titleElement).toBeTruthy();
 });

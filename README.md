@@ -1,85 +1,105 @@
-# Easy Monday-Backed TaskList
+# Zoho Tasks Todo List App
 
-## This application:
-* Uses OAuth2.0 to connect to a Monday.com account
-* Displays user information and tasklist boards
-* Includes functionality to create new boards or update existing ones
-* Uses React for the framework
-* Deploys to [Netlify](https://runalloy.netlify.app) for public access
+A React application that provides a todo list interface backed by Zoho Tasks, integrated through RunAlloy.
 
-## This sample application requires the following:
-* [Node.js](https://nodejs.org/en/download) (tested on 24.5)
-* [HTTPie](https://httpie.io/cli) (optional) - Easier to use but curl examples are given as well
-* [Netlify](https://www.netlify.com/) account
-* [Monday.com](https://monday.com) account
+## Features
 
-# Getting Started with Create React App
+- **Task List Management**: Create, update, and delete task lists (equivalent to boards)
+- **Task Management**: Add, edit, delete, and mark tasks as complete/incomplete
+- **OAuth Authentication**: Secure authentication via RunAlloy's Zoho Tasks integration
+- **Real-time Updates**: Changes sync immediately with Zoho Tasks
+- **Responsive Design**: Works on desktop and mobile devices
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Architecture
 
-## Available Scripts
+This app uses:
+- **Frontend**: React with hooks for state management
+- **Backend**: Netlify Functions for serverless API calls
+- **Integration**: RunAlloy as middleware for Zoho Tasks API
+- **Authentication**: OAuth 2.0 via RunAlloy
 
-In the project directory, you can run:
+## Setup
 
-### `npm start`
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd runalloy-zoho-tasks
+   ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Configure environment variables**
+   Create a `.env` file with:
+   ```bash
+   RUNALLOY_API_KEY=your_runalloy_api_key
+   RUNALLOY_API_URL=https://production.runalloy.com
+   ```
 
-### `npm test`
+4. **Deploy to Netlify** (recommended)
+   ```bash
+   npm run build
+   # Deploy the build folder to Netlify
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+1. Enter your email address to start
+2. Authenticate with Zoho through RunAlloy's OAuth flow
+3. Create task lists and add tasks
+4. Mark tasks as complete by checking the checkbox
+5. Edit or delete tasks and task lists as needed
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## API Integration
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app integrates with Zoho Tasks through RunAlloy:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Task Lists**: Mapped to Zoho Task Lists
+- **Tasks**: Mapped to Zoho Tasks
+- **Status**: "Working on it" (open) ↔ "Done" (completed)
 
-### `npm run eject`
+## Development
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Available Scripts
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `npm start` - Run development server
+- `npm test` - Run tests
+- `npm run build` - Build for production
+- `npm run eject` - Eject from Create React App
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+src/
+├── App.js                    # Main application component
+├── BoardComponent.js         # Task list display component
+├── BoardManagement.js        # Task list management UI
+├── TodoList.js              # Task management UI
+└── ...
 
-## Learn More
+netlify/functions/
+├── zoho-auth.js             # Authentication via RunAlloy
+├── zoho-tasklists.js        # Task list operations
+├── zoho-tasks.js            # Task operations
+└── runalloy-helper.js       # RunAlloy integration utilities
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Documentation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [RunAlloy Integration Guide](README-RunAlloy.md)
+- [Zoho Tasks Integration Guide](README-Zoho.md)
+- [OAuth Setup Guide](README-OAuth.md)
 
-### Code Splitting
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-### Analyzing the Bundle Size
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.
